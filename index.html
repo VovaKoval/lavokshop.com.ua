@@ -31,8 +31,9 @@ h1,h2,h3{font-family:'Syne',sans-serif;font-weight:700}
 /* NAV */
 nav{background:var(--ink);position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.18)}
 .nav-inner{max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.nav-logo{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;text-decoration:none;letter-spacing:-.5px}
+.nav-logo{display:inline-flex;align-items:center;text-decoration:none;cursor:pointer;gap:0}
 .nav-logo span{color:var(--accent2)}
+.nav-logo-svg{height:38px;width:auto;flex-shrink:0}
 .nav-search{flex:1;min-width:160px;padding:9px 16px;border:none;border-radius:8px;background:rgba(255,255,255,.1);color:#fff;font-size:.875rem;font-family:'DM Sans',sans-serif;outline:none;transition:background .2s}
 .nav-search:focus{background:rgba(255,255,255,.16)}
 .nav-search::placeholder{color:rgba(255,255,255,.35)}
@@ -228,6 +229,17 @@ nav{background:var(--ink);position:sticky;top:0;z-index:100;box-shadow:0 2px 16p
 .toast.e{background:var(--red)}
 @keyframes tst{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
+/* DISCOUNT BANNERS */
+.disc-banners { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px; }
+.disc-banner { display:flex; align-items:center; gap:10px; padding:12px 18px; border-radius:12px; background:linear-gradient(135deg,#ef4444,#dc2626); color:#fff; font-size:.85rem; font-weight:600; flex:1; min-width:200px; box-shadow:0 2px 12px rgba(239,68,68,.25); }
+.disc-banner-pct { font-family:'Syne',sans-serif; font-size:1.6rem; font-weight:800; flex-shrink:0; }
+.disc-banner-info { flex:1; }
+.disc-banner-name { font-size:.9rem; font-weight:700; margin-bottom:2px; }
+.disc-banner-sub { font-size:.75rem; opacity:.85; }
+
+/* PROD BADGE right side */
+.prod-badge-disc { position:absolute; top:10px; right:10px; background:var(--red); color:#fff; font-size:.68rem; font-weight:800; padding:2px 8px; border-radius:99px; font-family:'Syne',sans-serif; z-index:2; }
+
 /* FOOTER */
 footer{background:var(--ink);color:rgba(255,255,255,.4);text-align:center;padding:24px;font-size:.82rem;margin-top:40px}
 footer a{color:rgba(255,255,255,.5);text-decoration:none}
@@ -261,7 +273,18 @@ footer a:hover{color:#fff}
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="nav-logo" onclick="showHome();return false;" id="nav-logo-text">LaVok<span>.</span></a>
+    <a href="#" class="nav-logo" onclick="showHome();return false;" id="nav-logo-text">
+      <svg class="nav-logo-svg" viewBox="0 0 240 52" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(26,26)">
+          <rect x="-18" y="-18" width="36" height="36" rx="7" fill="#5b4cf5" transform="rotate(12)"/>
+          <rect x="-15" y="-15" width="30" height="30" rx="5" fill="#3730a3" transform="rotate(-8)"/>
+          <line x1="-9" y1="7" x2="0" y2="-9" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="9" y1="7" x2="0" y2="-9" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/>
+          <circle cx="0" cy="-9" r="2" fill="#a78bfa"/>
+        </g>
+        <text x="56" y="33" font-family="'Arial Black',Arial,sans-serif" font-weight="900" font-size="26" fill="#ffffff" letter-spacing="-1">LaVok<tspan fill="#7c6df7">.</tspan></text>
+      </svg>
+    </a>
     <input type="text" class="nav-search" id="nav-search" placeholder="🔍 Пошук товарів..." oninput="renderProducts()">
     <button class="cart-btn" onclick="openCart()">
       🛒 Кошик <span class="cart-count" id="cart-count">0</span>
@@ -275,8 +298,18 @@ footer a:hover{color:#fff}
     <div class="hero" id="shop-hero" style="background:linear-gradient(135deg,#0d0f14 0%,#1a1b2e 100%)">
       <div class="hero-text" style="position:relative;z-index:1">
         <div class="hero-badge">🛍️ Офіційний магазин</div>
-        <h2 id="hero-title">LaVok Shop</h2>
-        <p id="hero-slogan">Якісні товари з доставкою по всій Україні. Зручне замовлення, швидка обробка.</p>
+        <!-- Hero logo mark -->
+        <svg viewBox="0 0 300 58" xmlns="http://www.w3.org/2000/svg" style="height:56px;width:auto;margin-bottom:12px;display:block">
+          <g transform="translate(28,29)">
+            <rect x="-20" y="-20" width="40" height="40" rx="9" fill="#5b4cf5" transform="rotate(12)"/>
+            <rect x="-17" y="-17" width="34" height="34" rx="7" fill="#3730a3" transform="rotate(-8)"/>
+            <line x1="-11" y1="9" x2="0" y2="-11" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round"/>
+            <line x1="11" y1="9" x2="0" y2="-11" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round"/>
+            <circle cx="0" cy="-11" r="2.5" fill="#a78bfa"/>
+          </g>
+          <text x="62" y="37" font-family="'Arial Black',Arial,sans-serif" font-weight="900" font-size="30" fill="#ffffff" letter-spacing="-1.5">LaVok<tspan fill="#7c6df7">.</tspan></text>
+        </svg>
+        <p id="hero-slogan" style="color:rgba(255,255,255,.55);font-size:.95rem;max-width:380px;line-height:1.6">Якісні товари з доставкою по всій Україні. Зручне замовлення, швидка обробка.</p>
       </div>
       <div class="hero-stats" style="position:relative;z-index:1">
         <div class="hero-stat"><div class="hero-stat-val" id="hero-products">0</div><div class="hero-stat-lbl">Товарів</div></div>
@@ -284,6 +317,8 @@ footer a:hover{color:#fff}
       </div>
     </div>
     <div class="cats-row" id="cats-row"></div>
+    <!-- Active discounts banner -->
+    <div id="discount-banners"></div>
     <div class="section-title" id="section-title">🛍️ Всі товари</div>
     <div class="products-grid" id="products-grid"></div>
     <div id="success-screen">
@@ -315,6 +350,7 @@ footer a:hover{color:#fff}
   <div class="cart-items" id="cart-items"></div>
   <div class="cart-foot" id="cart-foot" style="display:none">
     <div class="cart-total"><span>Товарів:</span><span id="cart-items-count">0 шт.</span></div>
+    <div class="cart-total" id="cart-disc-line" style="display:none;color:var(--red)"></div>
     <div class="cart-total big"><span>Разом:</span><span id="cart-total-val">0 ₴</span></div>
     <button class="checkout-btn" onclick="openCheckout()">Оформити замовлення →</button>
   </div>
@@ -390,11 +426,12 @@ footer a:hover{color:#fff}
 
 <script>
 // ===================== CONFIG =====================
-const GAS_URL = "https://script.google.com/macros/s/AKfycbwUHvWoR08kQ6-o1Bbn9UWNhpKXvEF5ehhwNJJiYi0LxgsUICu6gQ85wERRC-l8cHYeYA/exec";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbzw9-IjLnfRiWMs42YNY1J_9o5zyCnMLzkINc8mmcPzKAgZM0OzYWUIOFvo6v_wzw5Ohg/exec";
 
 // ===================== STATE =====================
 let allProducts  = []; // all products from DB
 let products     = []; // filtered (in stock)
+let allDiscounts = []; // active discounts from DB
 let cart         = [];
 let activeCat    = '';
 let currentDetail = null; // product being viewed
@@ -415,6 +452,57 @@ function getFmtDate() {
   const n=new Date(), p=x=>String(x).padStart(2,'0');
   return `${p(n.getDate())}.${p(n.getMonth()+1)}.${n.getFullYear()}, ${p(n.getHours())}:${p(n.getMinutes())}`;
 }
+// ===================== DISCOUNT HELPERS =====================
+function parseShopDate(str) {
+  if (!str) return null;
+  if (/^\d{2}\.\d{2}\.\d{4}/.test(str)) { const [d,m,y]=str.split('.'); return new Date(+y,+m-1,+d); }
+  if (/^\d{4}-\d{2}-\d{2}/.test(str))   { const [y,m,d]=str.split('-'); return new Date(+y,+m-1,+d); }
+  const r=new Date(str); return isNaN(r)?null:r;
+}
+function parseShopArr(val) {
+  if (!val) return [];
+  if (Array.isArray(val)) return val.filter(Boolean);
+  try { const p=JSON.parse(val); return Array.isArray(p)?p.filter(Boolean):[]; } catch { return []; }
+}
+// Get best discount for a single product
+function getProductDiscount(prod) {
+  for (const d of allDiscounts) {
+    if (d.type !== 'percent') continue;
+    const codes = parseShopArr(d.productCodes);
+    const cats  = parseShopArr(d.categories);
+    if (codes.length && !codes.includes(prod.code) && !codes.includes(prod.name)) continue;
+    if (cats.length  && !cats.includes(prod.cat)) continue;
+    // Skip discounts that require min amount/qty (can't check per-product)
+    if (+d.minAmount > 0 || +d.minQty > 1) continue;
+    return d;
+  }
+  return null;
+}
+// Get best cart-level discount (checks total amount & qty)
+function getCartDiscount(cartItems) {
+  const subtotal = cartItems.reduce((s,ci)=>s+ci.qty*ci.price,0);
+  const totalQty = cartItems.reduce((s,ci)=>s+ci.qty,0);
+  let best = null;
+  for (const d of allDiscounts) {
+    if (+d.minAmount > 0 && subtotal < +d.minAmount) continue;
+    if (+d.minQty > 0 && totalQty < +d.minQty) continue;
+    const codes = parseShopArr(d.productCodes);
+    const cats  = parseShopArr(d.categories);
+    if (codes.length || cats.length) {
+      const match = cartItems.some(ci => {
+        const p = allProducts.find(x=>x.name===ci.name);
+        if (codes.length && !codes.includes(p?.code) && !codes.includes(ci.name)) return false;
+        if (cats.length  && !cats.includes(p?.cat)) return false;
+        return true;
+      });
+      if (!match) continue;
+    }
+    let effPct = d.type==='percent' ? +d.value : (subtotal>0 ? Math.min(100,(+d.value/subtotal)*100) : 0);
+    if (!best || effPct > best.effPct) best = {...d, effPct};
+  }
+  return best;
+}
+
 function toast(text, type='') {
   const b=document.getElementById('toast-box');
   const t=document.createElement('div');
@@ -445,6 +533,14 @@ window.onload = async () => {
     const data = await res.json();
     allProducts = data.products || [];
     products    = allProducts.filter(p => +p.qty > 0);
+    // Load active discounts
+    allDiscounts = (data.discounts || []).filter(d => {
+      if (!d.active && d.active !== true && d.active !== 'true' && d.active !== 1) return false;
+      const today = new Date(); today.setHours(0,0,0,0);
+      if (d.startDate) { const s = parseShopDate(d.startDate); if (s && s > today) return false; }
+      if (d.endDate)   { const e = parseShopDate(d.endDate);   if (e) { e.setHours(23,59,59,999); if (e < today) return false; } }
+      return true;
+    }).sort((a,b) => (+b.priority||0)-(+a.priority||0));
 
     // Load shop settings from DB
     if (data.settings) {
@@ -458,8 +554,6 @@ window.onload = async () => {
     applyTheme(shopSettings.color);
     document.title = shopSettings.name;
     document.getElementById('loader-title').innerText = shopSettings.name;
-    document.getElementById('nav-logo-text').innerHTML = shopSettings.name.replace(/\.$/, '') + '<span>.</span>';
-    document.getElementById('hero-title').innerText    = shopSettings.name;
     document.getElementById('hero-slogan').innerText   = shopSettings.slogan;
     document.getElementById('chat-head-title').innerText = shopSettings.name + ' — Підтримка';
 
@@ -468,6 +562,7 @@ window.onload = async () => {
 
     renderCategories();
     renderProducts();
+    renderDiscountBanners();
   } catch(e) {
     toast('Не вдалось завантажити товари. Перевірте підключення.','e');
     console.error(e);
@@ -497,6 +592,37 @@ function showDetail(productName) {
 }
 
 // ===================== CATEGORIES =====================
+function renderDiscountBanners() {
+  const el = document.getElementById('discount-banners');
+  if (!el) return;
+  // Show only global (no product/category restriction) or category-wide discounts
+  const visible = allDiscounts.filter(d => {
+    const codes = parseShopArr(d.productCodes);
+    const cats  = parseShopArr(d.categories);
+    // Show if no product restriction (global or category-only)
+    return codes.length === 0;
+  }).slice(0, 3); // max 3 banners
+  if (!visible.length) { el.innerHTML = ''; return; }
+  const fmtCondition = d => {
+    const parts = [];
+    if (+d.minAmount > 0) parts.push(`від ${(+d.minAmount).toLocaleString()} ₴`);
+    if (+d.minQty > 1)    parts.push(`від ${d.minQty} товарів`);
+    const cats = parseShopArr(d.categories);
+    if (cats.length)      parts.push(`кат.: ${cats.join(', ')}`);
+    if (d.endDate)        parts.push(`до ${d.endDate}`);
+    return parts.join(' · ') || 'На всі товари';
+  };
+  el.innerHTML = `<div class="disc-banners">${visible.map(d => `
+    <div class="disc-banner">
+      <div class="disc-banner-pct">${d.type==='percent'?'−'+d.value+'%':'−'+d.value+'₴'}</div>
+      <div class="disc-banner-info">
+        <div class="disc-banner-name">🏷 ${d.name}</div>
+        <div class="disc-banner-sub">${fmtCondition(d)}</div>
+      </div>
+    </div>
+  `).join('')}</div>`;
+}
+
 function renderCategories() {
   const cats = ['', ...new Set(products.map(p=>p.cat).filter(Boolean))];
   document.getElementById('cats-row').innerHTML = cats.map(c=>`
@@ -545,13 +671,19 @@ function buildProductCard(p, compact) {
     ? `<img src="${p.photo}" alt="${p.name}" loading="lazy" onerror="this.parentNode.innerHTML='${getCatEmoji(p.cat)}';">`
     : getCatEmoji(p.cat);
 
-  // Sizes
   let sizesHtml = '';
   if (ptype === 'clothing' && p.sizes && !compact) {
     const sizeKey = (p.code||p.name).replace(/\W/g,'_');
-    sizesHtml = `<div class="prod-sizes" id="sizes-${sizeKey}">${
-      p.sizes.split(',').map(s=>`<span class="size-chip" onclick="selectProdSize(this,'${sizeKey}')">${s.trim()}</span>`).join('')
-    }</div>`;
+    const sizeStock = (typeof p.sizeStock === 'object' && p.sizeStock) ? p.sizeStock : {};
+    const sizeChips = p.sizes.split(',').map(s => {
+      const sz = s.trim();
+      const sq = sizeStock[sz] !== undefined ? +sizeStock[sz] : null;
+      const outSz = sq !== null && sq <= 0;
+      const clickHandler = outSz ? '' : 'onclick="selectProdSize(this,\''+sizeKey+'\')"';
+      const stockLabel = sq !== null ? '<br><small style="font-size:.6rem;font-weight:400;color:'+(outSz?'var(--red)':'var(--muted)')+';">'+(outSz?'×':sq+' шт.')+'</small>' : '';
+      return '<span class="size-chip'+(outSz?' size-out':'')+'" '+clickHandler+' title="'+(sq!==null?sq+' шт.':'')+'" style="'+(outSz?'opacity:.4;text-decoration:line-through;cursor:not-allowed':'')+'">'+sz+stockLabel+'</span>';
+    }).join('');
+    sizesHtml = '<div class="prod-sizes" id="sizes-'+sizeKey+'">'+sizeChips+'</div>';
   }
 
   const stockHtml = outOfStock
@@ -560,7 +692,18 @@ function buildProductCard(p, compact) {
       ? `<div class="stock-info stock-low">⚠️ Мало: ${p.qty} ${unit}</div>`
       : `<div class="stock-info">✅ В наявності${!compact?' : '+p.qty+' '+unit:''}</div>`;
 
-  const priceHtml = `<div class="prod-price">${(+p.price||0).toLocaleString()} ₴${ptype==='weight'?' / '+unit:''}</div>`;
+  const priceHtml = (() => {
+    const disc = getProductDiscount(p);
+    if (disc) {
+      const discPrice = Math.round(+p.price * (1 - disc.value/100));
+      return `<div class="prod-price">
+        <span style="text-decoration:line-through;color:var(--muted);font-size:.85rem;font-weight:400">${(+p.price||0).toLocaleString()} ₴</span>
+        <span style="color:var(--red);margin-left:6px">${discPrice.toLocaleString()} ₴</span>
+        ${ptype==='weight'?'<small style="font-weight:400;font-size:.75rem"> / '+unit+'</small>':''}
+      </div>`;
+    }
+    return `<div class="prod-price">${(+p.price||0).toLocaleString()} ₴${ptype==='weight'?' / '+unit:''}</div>`;
+  })();
 
   const sizeKey = (p.code||p.name).replace(/\W/g,'_');
   const addBtnHtml = outOfStock
@@ -574,6 +717,7 @@ function buildProductCard(p, compact) {
   return `<div class="prod-card">
     <div class="prod-img" onclick="showDetail('${esc(p.name)}')">${imgContent}
       ${outOfStock ? '<span class="prod-badge out">Немає</span>' : lowStock ? '<span class="prod-badge" style="background:var(--orange)">Мало</span>' : ''}
+      ${(() => { const d=getProductDiscount(p); return d?`<span class="prod-badge" style="background:var(--red);right:10px;left:auto">−${d.value}%</span>`:''; })()}
     </div>
     <div class="prod-body">
       <div class="prod-cat">${p.cat||'Товар'}</div>
@@ -597,14 +741,18 @@ function renderDetail(p) {
   const outOfStock = +p.qty <= 0;
   const lowStock   = !outOfStock && +p.qty <= 5;
 
-  // Sizes
+  // Sizes with per-size stock
   let sizesSection = '';
   if (ptype === 'clothing' && p.sizes) {
-    sizesSection = `
-      <div class="detail-sizes-label">Оберіть розмір</div>
-      <div class="detail-sizes" id="detail-sizes">
-        ${p.sizes.split(',').map(s=>`<button class="detail-size-btn" onclick="selectDetailSize(this)">${s.trim()}</button>`).join('')}
-      </div>`;
+    const sizeStock = (typeof p.sizeStock === 'object' && p.sizeStock) ? p.sizeStock : {};
+    const sizeButtons = p.sizes.split(',').map(s => {
+      const sz = s.trim();
+      const sq = sizeStock[sz] !== undefined ? +sizeStock[sz] : null;
+      const outSz = sq !== null && sq <= 0;
+      const stockLabel = sq !== null ? '<small style="display:block;font-size:.65rem;font-weight:400;color:'+(outSz?'var(--red)':'var(--muted)')+';">'+(outSz?'×':sq+' шт.')+'</small>' : '';
+      return '<button class="detail-size-btn'+(outSz?' size-btn-out':'')+'" '+(outSz?'disabled title="Немає в наявності" style="opacity:.4;cursor:not-allowed;text-decoration:line-through"':'onclick="selectDetailSize(this)"')+'>'+sz+stockLabel+'</button>';
+    }).join('');
+    sizesSection = '<div class="detail-sizes-label">Оберіть розмір <span style="font-weight:400;color:var(--muted);font-size:.75rem">(кількість по розмірах)</span></div><div class="detail-sizes" id="detail-sizes">'+sizeButtons+'</div>';
   }
 
   const stockClass = outOfStock ? 'out' : lowStock ? 'low' : 'ok';
@@ -616,6 +764,17 @@ function renderDetail(p) {
 
   const sizeKey = (p.code||p.name).replace(/\W/g,'_');
 
+  const disc = getProductDiscount(p);
+  const discPrice = disc ? Math.round(+p.price * (1 - disc.value/100)) : null;
+  const priceDisplay = discPrice
+    ? `<div class="detail-price">
+        <span style="text-decoration:line-through;color:var(--muted);font-size:1.2rem;font-weight:400">${(+p.price||0).toLocaleString()} ₴</span>
+        <span style="color:var(--red)">${discPrice.toLocaleString()} ₴</span>
+        ${ptype==='weight'?`<small style="font-size:.9rem;font-weight:400;color:var(--muted)"> / ${unit}</small>`:''}
+        <div style="display:inline-block;margin-left:8px;background:var(--red);color:#fff;font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:6px;vertical-align:middle">−${disc.value}%</div>
+      </div>`
+    : `<div class="detail-price">${(+p.price||0).toLocaleString()} ₴${ptype==='weight'?' / '+unit:''}</div>`;
+
   document.getElementById('detail-grid').innerHTML = `
     <div class="detail-gallery">
       <div class="detail-main-img">${imgContent}</div>
@@ -626,14 +785,15 @@ function renderDetail(p) {
       <div class="detail-stock ${stockClass}">${stockText}</div>
       ${p.description ? `<div class="detail-desc">${p.description}</div>` : ''}
       ${sizesSection}
-      <div class="detail-price">${(+p.price||0).toLocaleString()} ₴${ptype==='weight'?' / '+unit:''}</div>
-      <button class="detail-add-btn" id="detail-add-btn" ${outOfStock?'disabled':''} onclick="addFromDetail('${esc(p.name)}',${p.price||0},${p.qty},'${p.unit||'pcs'}','${ptype}','${sizeKey}')">
+      ${priceDisplay}
+      <button class="detail-add-btn" id="detail-add-btn" ${outOfStock?'disabled':''} onclick="addFromDetail('${esc(p.name)}',${discPrice||p.price||0},${p.qty},'${p.unit||'pcs'}','${ptype}','${sizeKey}')">
         ${outOfStock ? 'Немає в наявності' : '🛒 Додати в кошик'}
       </button>
       <div class="detail-meta">
         ${p.code ? `<div class="detail-meta-item"><div class="detail-meta-label">Код товару</div>${p.code}</div>` : ''}
         ${ptype !== 'pcs' ? `<div class="detail-meta-item"><div class="detail-meta-label">Тип</div>${ptype==='clothing'?'👕 Одяг/Взуття':ptype==='weight'?'⚖️ Ваговий':'📚 Книга'}</div>` : ''}
         ${p.sizes ? `<div class="detail-meta-item"><div class="detail-meta-label">Розміри</div>${p.sizes}</div>` : ''}
+        ${disc ? `<div class="detail-meta-item" style="background:var(--red-light)"><div class="detail-meta-label" style="color:var(--red)">Знижка</div><strong style="color:var(--red)">${disc.name} −${disc.value}%</strong></div>` : ''}
       </div>
     </div>
   `;
@@ -704,8 +864,8 @@ function selectProdSize(chip, sizeKey) {
 }
 
 function updateCartUI() {
-  const total = cart.reduce((s, ci) => s + ci.qty, 0);
-  document.getElementById('cart-count').innerText = total;
+  const cartItemCount = cart.reduce((s, ci) => s + ci.qty, 0);
+  document.getElementById('cart-count').innerText = cartItemCount;
 
   const itemsEl = document.getElementById('cart-items');
   const footEl  = document.getElementById('cart-foot');
@@ -733,8 +893,21 @@ function updateCartUI() {
   `).join('');
 
   const subtotal = cart.reduce((s, ci) => s + ci.qty * ci.price, 0);
+  const cartDisc = getCartDiscount(cart);
+  const discAmt  = cartDisc ? Math.round(subtotal * (cartDisc.effPct||cartDisc.value) / 100) : 0;
+  const total    = subtotal - discAmt;
   document.getElementById('cart-items-count').innerText = cart.reduce((s,ci)=>s+ci.qty,0) + ' шт.';
-  document.getElementById('cart-total-val').innerText   = subtotal.toLocaleString() + ' ₴';
+  document.getElementById('cart-total-val').innerText   = total.toLocaleString() + ' ₴';
+  // Show discount line if applicable
+  const discLineEl = document.getElementById('cart-disc-line');
+  if (discLineEl) {
+    if (discAmt > 0) {
+      discLineEl.style.display = 'flex';
+      discLineEl.innerHTML = `<span>🏷 ${cartDisc.name}</span><span style="color:var(--red)">−${discAmt.toLocaleString()} ₴</span>`;
+    } else {
+      discLineEl.style.display = 'none';
+    }
+  }
   footEl.style.display = 'block';
 }
 
@@ -755,9 +928,15 @@ function openCheckout() {
   if (!cart.length) return;
   closeCart();
   const subtotal = cart.reduce((s,ci)=>s+ci.qty*ci.price, 0);
+  const cartDisc = getCartDiscount(cart);
+  const discAmt  = cartDisc ? Math.round(subtotal * (cartDisc.effPct||cartDisc.value) / 100) : 0;
+  const total    = subtotal - discAmt;
   document.getElementById('order-summary').innerHTML =
     cart.map(ci=>`<div class="order-row"><span>${ci.name}${ci.variant?' ('+ci.variant+')':''} × ${ci.qty} ${getUnitLabel(ci.unit)}</span><strong>${(ci.qty*ci.price).toLocaleString()} ₴</strong></div>`).join('')
-    + `<div class="order-row"><span>Разом</span><strong>${subtotal.toLocaleString()} ₴</strong></div>`;
+    + (discAmt>0 ? `<div class="order-row" style="color:var(--red)"><span>🏷 Знижка: ${cartDisc.name}</span><strong>−${discAmt.toLocaleString()} ₴</strong></div>` : '')
+    + `<div class="order-row"><span>Разом</span><strong>${total.toLocaleString()} ₴</strong></div>`;
+  // Store discount for submitOrder
+  window._checkoutDiscount = { discAmt, discPct: cartDisc?.effPct||cartDisc?.value||0, discName: cartDisc?.name||'' };
   document.getElementById('checkout-modal').classList.add('open');
 }
 function closeCheckout() { document.getElementById('checkout-modal').classList.remove('open'); }
@@ -784,7 +963,7 @@ async function submitOrder() {
     const dbOrders   = data.orders   || [];
     const dbClients  = data.clients  || [];
 
-    // Check stock
+    // Check stock & update sizeStock
     for (const ci of cart) {
       const prod = dbProds.find(p => p.name === ci.name);
       if (!prod || +prod.qty < ci.qty) {
@@ -793,6 +972,10 @@ async function submitOrder() {
         return;
       }
       prod.qty = +prod.qty - ci.qty;
+      // Update per-size stock
+      if (ci.variant && prod.sizeStock && typeof prod.sizeStock === 'object' && prod.sizeStock[ci.variant] !== undefined) {
+        prod.sizeStock[ci.variant] = Math.max(0, (+prod.sizeStock[ci.variant]||0) - ci.qty);
+      }
     }
 
     // Client
@@ -806,22 +989,32 @@ async function submitOrder() {
       if (email) client.email = email;
     }
 
-    // Orders
-    const total = cart.reduce((s, ci) => s + ci.qty * ci.price, 0);
+    // Orders — apply discount
+    const subtotalRaw = cart.reduce((s, ci) => s + ci.qty * ci.price, 0);
+    const cd = window._checkoutDiscount || { discAmt:0, discPct:0, discName:'' };
+    const discMultiplier = cd.discPct > 0 ? (1 - cd.discPct/100) : 1;
+    const total = subtotalRaw - cd.discAmt;
     const firstOrderId = String(Date.now()).slice(-6);
+    const createdOrders = [];
     for (const ci of cart) {
       const orderId = String(Date.now()).slice(-6) + Math.floor(Math.random()*100);
-      dbOrders.unshift({
+      const lineTotal = Math.round(ci.qty * ci.price * discMultiplier);
+      const orderObj = {
         id: orderId, date: getFmtDate(),
         client: name, phone, product: ci.name,
         variant: ci.variant||'', qty: ci.qty,
-        total: ci.qty * ci.price, unit: ci.unit||'pcs',
-        manager: 'Магазин', comment
-      });
+        total: lineTotal, unit: ci.unit||'pcs',
+        manager: 'Магазин',
+        comment: (comment||'') + (cd.discName ? ` [Знижка: ${cd.discName} −${cd.discPct}%]` : ''),
+        ttn: '', payMethod: 'cod'
+      };
+      dbOrders.unshift(orderObj);
+      createdOrders.push(orderObj);
       client.orders = (+client.orders||0) + 1;
-      client.sum    = (+client.sum   ||0) + ci.qty * ci.price;
+      client.sum    = (+client.sum   ||0) + lineTotal;
       client.last   = getFmtDate();
     }
+    window._checkoutDiscount = null;
 
     // Save
     const writeRes = await fetch(GAS_URL + '?action=writeAll', {
@@ -831,6 +1024,7 @@ async function submitOrder() {
     if (!writeRes.ok) throw new Error();
 
     closeCheckout();
+    const savedCart = [...cart];
     cart = [];
     updateCartUI();
 
@@ -844,15 +1038,20 @@ async function submitOrder() {
     document.getElementById('cats-row').style.display       = 'none';
     document.getElementById('section-title').style.display  = 'none';
     document.getElementById('shop-hero').style.display      = 'none';
-    document.getElementById('success-order-info').innerHTML = `Номер замовлення: <strong>#${firstOrderId}</strong><br>Чек надіслано на ${email||phone}`;
+    document.getElementById('success-order-info').innerHTML = `Номер замовлення: <strong>#${firstOrderId}</strong>${email?'<br>Чек надіслано на <strong>'+email+'</strong>':''}`;
     document.getElementById('success-screen').className     = 'show';
 
     toast(`🎉 Замовлення на ${total.toLocaleString()} ₴ прийнято!`, 's');
 
-    // Try to send email via GAS if configured
-    if (shopSettings.notifyEmail || data.settings?.notifyEmail) {
-      const toEmail = shopSettings.notifyEmail || data.settings.notifyEmail;
-      sendReceiptEmail(toEmail, firstOrderId, name, phone, cart, total);
+    // Надсилаємо чек клієнту на його email
+    if (email && email.includes('@')) {
+      sendClientReceiptFromShop(email, firstOrderId, name, phone, city, addr, savedCart, total, data.settings);
+    }
+
+    // Сповіщення власника (на notifyEmail)
+    const ownerEmail = shopSettings.notifyEmail || data.settings?.notifyEmail;
+    if (ownerEmail && ownerEmail !== email) {
+      sendOwnerNotification(ownerEmail, firstOrderId, name, phone, city, addr, savedCart, total);
     }
 
   } catch(e) {
@@ -862,18 +1061,24 @@ async function submitOrder() {
   }
 }
 
-async function sendReceiptEmail(to, orderId, clientName, phone, cartItems, total) {
+// Надсилаємо красивий HTML чек клієнту
+async function sendClientReceiptFromShop(email, orderId, clientName, phone, city, addr, cartItems, total, settings) {
+  const shopName = (settings?.shopName) || 'LaVok Shop';
+  const rows = cartItems.map(ci=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #e8eaef;font-size:.875rem"><span>${ci.name}${ci.variant?' ('+ci.variant+')':''} × ${ci.qty}</span><strong>${(ci.qty*ci.price).toLocaleString()} ₴</strong></div>`).join('');
+  const bodyTxt = `Шановний(а) ${clientName},\n\nДякуємо за замовлення!\n\nЧек №: ${orderId}\nТовари:\n${cartItems.map(ci=>`- ${ci.name}${ci.variant?' ('+ci.variant+')':''} x${ci.qty} = ${(ci.qty*ci.price).toLocaleString()} ₴`).join('\n')}\nРАЗОМ: ${total.toLocaleString()} ₴\n\nДоставка: ${city}, ${addr}\nТелефон: ${phone}\n\nЗ повагою, ${shopName}`;
+  const htmlBody = `<div style="font-family:Arial,sans-serif;max-width:520px;margin:0 auto"><div style="background:#5b4cf5;padding:24px;text-align:center;border-radius:12px 12px 0 0"><h1 style="color:#fff;margin:0;font-size:1.4rem">${shopName}</h1><p style="color:rgba(255,255,255,.7);margin:4px 0 0">Ваше замовлення прийнято!</p></div><div style="background:#fff;padding:24px;border:1px solid #e8eaef;border-top:none;border-radius:0 0 12px 12px"><p>Шановний(а) <strong>${clientName}</strong>, дякуємо за покупку!</p><div style="background:#f4f5f8;border-radius:8px;padding:16px;margin:12px 0"><div style="font-weight:700;margin-bottom:8px;color:#5b4cf5">Чек #${orderId}</div>${rows}<div style="display:flex;justify-content:space-between;padding:10px 0 0;font-size:1rem;font-weight:700"><span>РАЗОМ</span><span style="color:#5b4cf5">${total.toLocaleString()} ₴</span></div></div><div style="background:#f0fdf4;border-radius:8px;padding:12px;margin:8px 0;font-size:.85rem"><strong>📍 Доставка:</strong> ${city}, ${addr}<br><strong>📞 Телефон:</strong> ${phone}</div><p style="color:#6b7280;font-size:.8rem;margin-top:16px">З повагою,<br><strong>${shopName}</strong></p></div></div>`;
   try {
-    const rows = cartItems.map(ci => `  - ${ci.name}${ci.variant?' ('+ci.variant+')':''} × ${ci.qty} ${getUnitLabel(ci.unit)} = ${(ci.qty*ci.price).toLocaleString()} ₴`).join('\n');
-    await fetch(GAS_URL, {
-      method:'POST',
-      body: JSON.stringify({
-        action: 'sendEmail',
-        to,
-        subject: `Нове замовлення #${orderId} — ${clientName}`,
-        body: `Нове замовлення з магазину!\n\nЧек #${orderId}\nКлієнт: ${clientName}\nТелефон: ${phone}\n\nТовари:\n${rows}\n\nЗагалом: ${total.toLocaleString()} ₴`
-      })
-    });
+    await fetch(GAS_URL, { method:'POST', body: JSON.stringify({ action:'sendEmail', to: email, subject:`Ваше замовлення #${orderId} — ${shopName}`, body: bodyTxt, htmlBody }) });
+  } catch(e) {}
+}
+
+// Сповіщення власника про нове замовлення
+async function sendOwnerNotification(ownerEmail, orderId, clientName, phone, city, addr, cartItems, total) {
+  const shopName = shopSettings.name || 'LaVok Shop';
+  const rows = cartItems.map(ci=>`- ${ci.name}${ci.variant?' ('+ci.variant+')':''} × ${ci.qty} = ${(ci.qty*ci.price).toLocaleString()} ₴`).join('\n');
+  const body = `🛒 НОВЕ ЗАМОВЛЕННЯ #${orderId}\n\nКлієнт: ${clientName}\nТелефон: ${phone}\nМісто: ${city}\nВідділення: ${addr}\n\nТовари:\n${rows}\n\nРАЗОМ: ${total.toLocaleString()} ₴`;
+  try {
+    await fetch(GAS_URL, { method:'POST', body: JSON.stringify({ action:'sendEmail', to: ownerEmail, subject:`🛒 Нове замовлення #${orderId} від ${clientName}`, body }) });
   } catch(e) {}
 }
 
