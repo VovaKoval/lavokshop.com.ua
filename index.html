@@ -678,10 +678,11 @@ function buildProductCard(p, compact) {
     const sizeChips = p.sizes.split(',').map(s => {
       const sz = s.trim();
       const sq = sizeStock[sz] !== undefined ? +sizeStock[sz] : null;
-      const outSz = sq !== null && sq <= 0;
+      // If sizeStock not configured per-size, treat as available if total qty > 0
+      const outSz = sq !== null ? sq <= 0 : false;
       const clickHandler = outSz ? '' : 'onclick="selectProdSize(this,\''+sizeKey+'\')"';
-      const stockLabel = sq !== null ? '<br><small style="font-size:.6rem;font-weight:400;color:'+(outSz?'var(--red)':'var(--muted)')+';">'+(outSz?'×':sq+' шт.')+'</small>' : '';
-      return '<span class="size-chip'+(outSz?' size-out':'')+'" '+clickHandler+' title="'+(sq!==null?sq+' шт.':'')+'" style="'+(outSz?'opacity:.4;text-decoration:line-through;cursor:not-allowed':'')+'">'+sz+stockLabel+'</span>';
+      const indicator = outSz ? '<br><small style="font-size:.6rem;color:var(--red)">×</small>' : '';
+      return '<span class="size-chip'+(outSz?' size-out':'')+'" '+clickHandler+' style="'+(outSz?'opacity:.4;text-decoration:line-through;cursor:not-allowed':'')+'">'+sz+indicator+'</span>';
     }).join('');
     sizesHtml = '<div class="prod-sizes" id="sizes-'+sizeKey+'">'+sizeChips+'</div>';
   }
@@ -689,8 +690,8 @@ function buildProductCard(p, compact) {
   const stockHtml = outOfStock
     ? `<div class="stock-info stock-out">❌ Немає в наявності</div>`
     : lowStock
-      ? `<div class="stock-info stock-low">⚠️ Мало: ${p.qty} ${unit}</div>`
-      : `<div class="stock-info">✅ В наявності${!compact?' : '+p.qty+' '+unit:''}</div>`;
+      ? `<div class="stock-info stock-low">⚠️ Мало в наявності</div>`
+      : `<div class="stock-info">✅ В наявності</div>`;
 
   const priceHtml = (() => {
     const disc = getProductDiscount(p);
@@ -749,14 +750,14 @@ function renderDetail(p) {
       const sz = s.trim();
       const sq = sizeStock[sz] !== undefined ? +sizeStock[sz] : null;
       const outSz = sq !== null && sq <= 0;
-      const stockLabel = sq !== null ? '<small style="display:block;font-size:.65rem;font-weight:400;color:'+(outSz?'var(--red)':'var(--muted)')+';">'+(outSz?'×':sq+' шт.')+'</small>' : '';
-      return '<button class="detail-size-btn'+(outSz?' size-btn-out':'')+'" '+(outSz?'disabled title="Немає в наявності" style="opacity:.4;cursor:not-allowed;text-decoration:line-through"':'onclick="selectDetailSize(this)"')+'>'+sz+stockLabel+'</button>';
+      const indicator = outSz ? '<small style="display:block;font-size:.6rem;color:var(--red)">×</small>' : '';
+      return '<button class="detail-size-btn'+(outSz?' size-btn-out':'')+'" '+(outSz?'disabled title="Немає в наявності" style="opacity:.4;cursor:not-allowed;text-decoration:line-through"':'onclick="selectDetailSize(this)"')+'>'+sz+indicator+'</button>';
     }).join('');
-    sizesSection = '<div class="detail-sizes-label">Оберіть розмір <span style="font-weight:400;color:var(--muted);font-size:.75rem">(кількість по розмірах)</span></div><div class="detail-sizes" id="detail-sizes">'+sizeButtons+'</div>';
+    sizesSection = '<div class="detail-sizes-label">Оберіть розмір</div><div class="detail-sizes" id="detail-sizes">'+sizeButtons+'</div>';
   }
 
   const stockClass = outOfStock ? 'out' : lowStock ? 'low' : 'ok';
-  const stockText  = outOfStock ? '❌ Немає в наявності' : lowStock ? `⚠️ Залишилось: ${p.qty} ${unit}` : `✅ В наявності: ${p.qty} ${unit}`;
+  const stockText  = outOfStock ? '❌ Немає в наявності' : lowStock ? `⚠️ Мало в наявності` : `✅ В наявності`;
 
   const imgContent = p.photo
     ? `<img src="${p.photo}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover">`
